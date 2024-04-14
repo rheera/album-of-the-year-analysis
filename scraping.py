@@ -4,19 +4,25 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-cache_link = "https://webcache.googleusercontent.com/search?q=cache:https://www.albumoftheyear.org/ratings/user-highest-rated/2024/"
+base_url = "https://webcache.googleusercontent.com/search?q=cache:https://www.albumoftheyear.org/ratings/user-highest-rated/"
+year_url = "1958/"
+page_url = "4/"
 
-r = requests.get(cache_link)
+r = requests.get(base_url + year_url + page_url)
 soup = BeautifulSoup(r.text, features="html.parser")
-
+r.status_code
 
 album_list = soup.find_all(class_="albumListRow")
-rank = int(float(album_list[1].find(class_="albumListRank").text))
-title = album_list[1].find(class_="albumListTitle").text
+rank = int(float(album_list[0].find(class_="albumListRank").text))
+title = album_list[15].find(class_="albumListTitle").text
 artist_name = re.search(r"[\d]+[\.](.*)-", title).group(1).strip()
 album_name = re.search(r"[\d]+[\.].+-(.*)", title).group(1).strip()
-release_date = album_list[1].find(class_="albumListDate").text
-genres = album_list[1].find(class_="albumListGenre").text.split(", ")
+release_date = album_list[0].find(class_="albumListDate").text
+genres = (
+    album_list[0].find(class_="albumListGenre").text.split(", ")
+    if album_list[0].find(class_="albumListGenre")
+    else ""
+)
 user_score = int(album_list[6].find(class_="scoreValue").text)
 user_score_float = float(
     album_list[6].find(class_="scoreValueContainer").attrs["title"]
@@ -25,6 +31,10 @@ number_of_ratings = int(
     album_list[2].find(class_="scoreText").text.split(" ")[0].replace(",", "")
 )
 link_to_album = album_list[1].find("a", itemprop="url").attrs["href"]
+list_year = int(year_url[0:4])
+album_artwork_link = (
+    album_list[0].find(class_="albumListCover").find("img").attrs["data-src"]
+)
 
 
 def check_must_hear(album_cover_classes):
@@ -43,13 +53,17 @@ def check_must_hear(album_cover_classes):
 # type(album_list[1])
 
 
-def get_album_info(album_element):
+def get_album_info(album_element, list_year):
     rank = int(float(album_element.find(class_="albumListRank").text))
     title = album_element.find(class_="albumListTitle").text
     artist_name = re.search(r"[\d]+[\.](.*)-", title).group(1).strip()
     album_name = re.search(r"[\d]+[\.].+-(.*)", title).group(1).strip()
     release_date = album_element.find(class_="albumListDate").text
-    genres = album_element.find(class_="albumListGenre").text.split(", ")
+    genres = (
+        album_element.find(class_="albumListGenre").text.split(", ")
+        if album_element.find(class_="albumListGenre")
+        else ""
+    )
     user_score = int(album_element.find(class_="scoreValue").text)
     user_score_float = float(
         album_element.find(class_="scoreValueContainer").attrs["title"]
@@ -61,7 +75,9 @@ def get_album_info(album_element):
     must_hear = check_must_hear(
         album_element.find(class_="albumListCover").attrs["class"]
     )
-
+    album_artwork_link = (
+        album_element.find(class_="albumListCover").find("img").attrs["data-src"]
+    )
     return {
         "rank": rank,
         "artist_name": artist_name,
@@ -73,13 +89,27 @@ def get_album_info(album_element):
         "number_of_ratings": number_of_ratings,
         "link_to_album": link_to_album,
         "must_hear": must_hear,
+        "album_artwork_link": album_artwork_link,
+        "list_year": list_year,
     }
 
 
 albums_list = []
 for album in album_list:
-    albums_list.append(get_album_info(album))
-get_album_info(album_list[20])
+    albums_list.append(get_album_info(album, int(year_url[0:4])))
+# get_album_info(album_list[20])
+
+for page_number in range(1, 5):
+    page_url = str(page_number) + "/"
+    if page_number == 1:
+        page_url = ""
+    r = requests.get(base_url + year_url + page_url)
+    if r.status_code == 404:
+        continue
+    soup = BeautifulSoup(r.text, features="html.parser")
+    album_list = soup.find_all(class_="albumListRow")
+    for album in album_list:
+        albums_list.append(get_album_info(album, int(year_url[0:4])))
 
 df = pd.DataFrame(albums_list)
 
