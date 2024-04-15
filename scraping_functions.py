@@ -91,6 +91,7 @@ def get_years_top_albums(base_url, year_url):
 
     years_album_list = []
     for page_number in range(1, 5):
+        time.sleep(random.randint(10, 30))
         page_url = str(page_number) + "/"
         if page_number == 1:
             page_url = ""
@@ -101,7 +102,6 @@ def get_years_top_albums(base_url, year_url):
         album_list = soup.find_all(class_="albumListRow")
         for album in album_list:
             years_album_list.append(get_album_info(album, int(year_url[0:4])))
-        time.sleep(random.randint(10, 30))
     return years_album_list
 
 
@@ -112,9 +112,9 @@ def get_range_top_albums(start_year, end_year, base_url):
     Parameters
     ----------
     start_year : int
-        start of the range
+        start of the range inclusive
     end_year : int
-        end of the range
+        end of the range exclusive
     base_url: string
         The base url of Album of the year's rating page
 
