@@ -45,56 +45,45 @@ co_occurrence_df = pd.DataFrame(
 )
 
 # Filter for the top most occuring genres
-co_occurrence_top = co_occurrence_df[co_occurrence_df["Count"] > 10]
-co_occurrence_top.reset_index(inplace=True)
-co_occurrence_top.columns = ["Genre 1", "Genre 2", "Count"]
+co_occurrence_top = co_occurrence_df[co_occurrence_df["Count"] > 10].sort_values(
+    "Count", ascending=False
+)
 # Create a pivot table to visualize a heat map
 pivot_table = pd.pivot_table(
-    co_occurrence_top, values="Count", index="Genre 1", columns="Genre 2", fill_value=0
-)
-
-# Visualize Pivot Table
-plt.figure(figsize=(10, 8))
-sns.heatmap(pivot_table, annot=False, cmap="YlGnBu")
-plt.title("Genre Co-Occurrence Heatmap")
-plt.xlabel("Associated Genre")
-plt.ylabel("Genre")
-plt.show()
-
-df_3 = co_occurrence_df[co_occurrence_df["Count"] > 10]
-pivot_table = pd.pivot_table(
-    co_occurrence_df.reset_index(),
+    co_occurrence_top.reset_index(),
     values="Count",
     index="level_0",
     columns="level_1",
     fill_value=0,
 )
 
-co_occurrence_df.reset_index()
-
-pivot_table.convert_dtypes().dtypes.value_counts()
-
-pivot_table[pivot_table]
-
+# Create a heatmap to visualize the occurences not as a pivot table
 plt.figure(figsize=(10, 8))
-sns.heatmap(pivot_table, annot=False, cmap="YlGnBu")
+sns.heatmap(co_occurrence_top, annot=False, cmap="YlGnBu")
 plt.title("Genre Co-Occurrence Heatmap")
 plt.xlabel("Associated Genre")
 plt.ylabel("Genre")
 plt.show()
 
-pivot_table[pivot_table["Abstract Hip Hop"] > 1]
 
-pivot_table = pd.pivot_table(
-    df_3.reset_index(), values="Count", index="level_0", columns="level_1", fill_value=0
+# try and make the same chart as above in plotly
+px.imshow(
+    co_occurrence_top,
+    labels=dict(
+        color="# of Occurences",
+    ),
+    width=400,
+    height=1200,
 )
 
-px.imshow(pivot_table)
-
-# occurence table
-plt.figure(figsize=(10, 8))
-sns.heatmap(df_3, annot=False, cmap="YlGnBu")
-plt.title("Genre Co-Occurrence Heatmap")
-plt.xlabel("Associated Genre")
-plt.ylabel("Genre")
-plt.show()
+# Visualize Pivot Table
+px.imshow(
+    pivot_table,
+    labels=dict(
+        x="Genre 2",
+        y="Genre 1",
+        color="# of Occurences",
+    ),
+    width=800,
+    height=800,
+)
