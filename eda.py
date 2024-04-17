@@ -45,7 +45,7 @@ co_occurrence_df = pd.DataFrame(
 )
 
 # Filter for the top most occuring genres
-co_occurrence_top = co_occurrence_df[co_occurrence_df["Count"] > 10].sort_values(
+co_occurrence_top = co_occurrence_df[co_occurrence_df["Count"] > 20].sort_values(
     "Count", ascending=False
 )
 # Create a pivot table to visualize a heat map
@@ -82,6 +82,36 @@ px.imshow(
     labels=dict(
         x="Genre 2",
         y="Genre 1",
+        color="# of Occurences",
+    ),
+    width=800,
+    height=800,
+)
+
+# Scatter plot of the genre occurences
+
+px.scatter(co_occurrence_top.reset_index(), size="Count", x="level_0", y="level_1")
+
+
+# new co-occurence matrix
+# deprecated method
+# u = (pd.get_dummies(pd.DataFrame(genres), prefix='', prefix_sep='')
+#        .groupby(level=0, axis=1)
+#        .sum())
+
+u = (
+    pd.get_dummies(pd.DataFrame(genres), prefix="", prefix_sep="")
+    .T.groupby(level=0)
+    .sum()
+).T
+
+
+v = u.T.dot(u)
+v.values[(np.r_[: len(v)],) * 2] = 0
+v_top = v[v > 10]
+px.imshow(
+    v_top,
+    labels=dict(
         color="# of Occurences",
     ),
     width=800,
