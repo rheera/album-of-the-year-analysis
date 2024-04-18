@@ -7,11 +7,15 @@ import pandas as pd
 import plotly.express as px
 import seaborn as sns
 
-# import data
+"""
+import data
+"""
 df = pd.read_excel("albums_final.xlsx")
 df.info()
 
-# cleaning
+"""
+cleaning
+"""
 # drop all rows that don't have genres
 df.dropna(subset=["genres"], axis=0, inplace=True)
 
@@ -117,3 +121,29 @@ px.imshow(
     width=800,
     height=800,
 )
+
+# Create co-occurence matrix out of the dictionary of the genre counts
+# Extract all unique genres
+all_genres = set(genre for pair in genre_counts.keys() for genre in pair)
+
+# Initialize an empty matrix (2D list)
+num_genres = len(all_genres)
+co_occurrence_matrix = [[0] * num_genres for _ in range(num_genres)]
+
+# Fill in the matrix
+genre_to_index = {genre: i for i, genre in enumerate(all_genres)}
+for (genre1, genre2), count in genre_counts.items():
+    row, col = genre_to_index[genre1], genre_to_index[genre2]
+    co_occurrence_matrix[row][col] = count
+    co_occurrence_matrix[col][row] = count  # Symmetric matrix
+
+# Convert to DataFrame (optional)
+df_co_occurrence = pd.DataFrame(
+    co_occurrence_matrix, index=list(all_genres), columns=list(all_genres)
+)
+
+print(df_co_occurrence)
+
+
+# rummaging through data
+df.sort_values("user_score", ascending=False).tail(20)

@@ -155,3 +155,8 @@ The below table lists the columns in the data.
 ## Stretch Goals
 
 - [x] None so far
+- [ ] Convert Data Analysis Works to Jupyter Notebooks. (VSCode lets you select lines of python code and run them in any order so I don't have a need for Notebooks)
+
+## Considerations
+
+Since AOTY seems to have beenc created in 2008 older Albums don't have as many ratings and the metadata of the album can possibly be less accurate.
