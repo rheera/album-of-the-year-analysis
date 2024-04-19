@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import seaborn as sns
+from sklearn.cluster import AgglomerativeClustering, KMeans
 
 """
 import data
@@ -31,6 +32,7 @@ len(np.unique(flat_genres))
 # Create a co_occurence dictionary of all the genres to see which genres are seen most foten with each other
 # Initialize a dictionary to store genre pairs and counts
 genre_counts = {}
+len(genre_counts)
 
 # Iterate through each row
 for genres_list in df["genres"]:
@@ -38,9 +40,12 @@ for genres_list in df["genres"]:
     pairs = combinations(genres_list, 2)
     for pair in pairs:
         # Update the counts
-        genre_counts.setdefault(pair, 0)
-        genre_counts[pair] += 1
+        genre_counts.setdefault(tuple(sorted(pair)), 0)
+        genre_counts[tuple(sorted(pair))] += 1
+        print(tuple(sorted(pair))) if "Singer-Songwriter" in pair else ""
 
+filtered_genres = {key: value for key, value in genre_counts.items() if value > 11}
+sorted_filtered_genres = dict(sorted(filtered_genres.items(), key=lambda item: item[1]))
 # Create a DataFrame from the dictionary
 co_occurrence_df = pd.DataFrame(
     genre_counts.values(),
@@ -113,6 +118,11 @@ u = (
 v = u.T.dot(u)
 v.values[(np.r_[: len(v)],) * 2] = 0
 v_top = v[v > 10]
+len(v_top[v_top != np.nan].index)
+v_top["Zolo"].T.value_counts()
+v_dropped = v.drop(v[v_top].index)
+filtered_df = v[(v > 10).any()]
+filtered_df.index
 px.imshow(
     v_top,
     labels=dict(
@@ -124,7 +134,7 @@ px.imshow(
 
 # Create co-occurence matrix out of the dictionary of the genre counts
 # Extract all unique genres
-all_genres = set(genre for pair in genre_counts.keys() for genre in pair)
+all_genres = set(genre for pair in sorted_filtered_genres.keys() for genre in pair)
 
 # Initialize an empty matrix (2D list)
 num_genres = len(all_genres)
@@ -132,7 +142,7 @@ co_occurrence_matrix = [[0] * num_genres for _ in range(num_genres)]
 
 # Fill in the matrix
 genre_to_index = {genre: i for i, genre in enumerate(all_genres)}
-for (genre1, genre2), count in genre_counts.items():
+for (genre1, genre2), count in sorted_filtered_genres.items():
     row, col = genre_to_index[genre1], genre_to_index[genre2]
     co_occurrence_matrix[row][col] = count
     co_occurrence_matrix[col][row] = count  # Symmetric matrix
@@ -142,8 +152,80 @@ df_co_occurrence = pd.DataFrame(
     co_occurrence_matrix, index=list(all_genres), columns=list(all_genres)
 )
 
-print(df_co_occurrence)
+# print(df_co_occurrence)
+px.imshow(df_co_occurrence)
 
+
+# same co-occurence but with different list
 
 # rummaging through data
 df.sort_values("user_score", ascending=False).tail(20)
+
+
+# clustering
+
+
+# Convert dictionary values to a numpy array
+values = np.array(list(filtered_genres.values())).reshape(-1, 1)
+
+# Initialize KMeans with 2 clusters (you can adjust the number of clusters)
+kmeans = KMeans(n_clusters=3, random_state=42)
+
+# Fit KMeans to the data
+kmeans.fit(values)
+
+# Get cluster labels for each value
+cluster_labels = kmeans.labels_
+
+# Add cluster labels back to the dictionary
+for i, key in enumerate(filtered_genres.keys()):
+    filtered_genres[key] = cluster_labels[i]
+
+# Print the updated dictionary with cluster labels
+print(filtered_genres)
+
+# Trying AgglomerativeClustering
+
+# Create a set of all unique genres
+all_genres = set()
+for key in genre_counts.keys():
+    all_genres.update(key)
+
+# Create a genre-to-index mapping
+genre_to_index = {genre: i for i, genre in enumerate(all_genres)}
+
+# Create an empty co-occurrence matrix
+co_occurrence_matrix = np.zeros((len(all_genres), len(all_genres)))
+
+# Fill in the co-occurrence matrix
+for key, value in genre_counts.items():
+    genre1, genre2 = key
+    i, j = genre_to_index[genre1], genre_to_index[genre2]
+    co_occurrence_matrix[i, j] = value
+    co_occurrence_matrix[j, i] = value
+
+# Perform hierarchical clustering
+n_clusters = 6
+clustering = AgglomerativeClustering(n_clusters=n_clusters, linkage="ward")
+cluster_labels = clustering.fit_predict(co_occurrence_matrix)
+
+# Create genre groups based on cluster labels
+genre_groups = {i: [] for i in range(n_clusters)}
+for genre, label in zip(all_genres, cluster_labels):
+    genre_groups[label].append(genre)
+
+# Print the genre groups
+for i, group in genre_groups.items():
+    print(f"Group {i+1}: {group}")
+
+
+len(np.unique(list(genre_counts.keys())))
+len(list(genre_counts.keys()))
+
+
+pairs = combinations(genres_list, 2)
+for pair in pairs:
+    print(pair)
+
+
+[1, 2] == [2, 1]
