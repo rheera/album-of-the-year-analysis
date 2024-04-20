@@ -32,7 +32,7 @@ len(np.unique(flat_genres))
 # Create a co_occurence dictionary of all the genres to see which genres are seen most foten with each other
 # Initialize a dictionary to store genre pairs and counts
 genre_counts = {}
-len(genre_counts)
+
 
 # Iterate through each row
 for genres_list in df["genres"]:
@@ -213,19 +213,3 @@ cluster_labels = clustering.fit_predict(co_occurrence_matrix)
 genre_groups = {i: [] for i in range(n_clusters)}
 for genre, label in zip(all_genres, cluster_labels):
     genre_groups[label].append(genre)
-
-# Print the genre groups
-for i, group in genre_groups.items():
-    print(f"Group {i+1}: {group}")
-
-
-len(np.unique(list(genre_counts.keys())))
-len(list(genre_counts.keys()))
-
-
-pairs = combinations(genres_list, 2)
-for pair in pairs:
-    print(pair)
-
-
-[1, 2] == [2, 1]

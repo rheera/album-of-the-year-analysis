@@ -155,7 +155,7 @@ The below table lists the columns in the data.
 ## Stretch Goals
 
 - [x] None so far
-- [ ] Convert Data Analysis Works to Jupyter Notebooks. (VSCode lets you select lines of python code and run them in any order so I don't have a need for Notebooks)
+- [ ] Convert Data Analysis Works to Jupyter Notebooks.
 
 ## Considerations
 
