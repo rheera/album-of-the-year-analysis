@@ -44,7 +44,7 @@ for genres_list in df["genres"]:
         genre_counts[tuple(sorted(pair))] += 1
         print(tuple(sorted(pair))) if "Singer-Songwriter" in pair else ""
 
-filtered_genres = {key: value for key, value in genre_counts.items() if value > 11}
+filtered_genres = {key: value for key, value in genre_counts.items() if value > 20}
 sorted_filtered_genres = dict(sorted(filtered_genres.items(), key=lambda item: item[1]))
 # Create a DataFrame from the dictionary
 co_occurrence_df = pd.DataFrame(
@@ -52,6 +52,12 @@ co_occurrence_df = pd.DataFrame(
     index=pd.MultiIndex.from_tuples(genre_counts.keys()),
     columns=["Count"],
 )
+list(filtered_genres.keys())[0:5]
+
+l = [(12.2817, 12.2817), (0, 0), (8.52, 8.52)]
+list(sum(l, ()))
+flattened = [item for sublist in filtered_genres for item in sublist]
+unique_filtered_genres = set(flattened)
 
 # Filter for the top most occuring genres
 co_occurrence_top = co_occurrence_df[co_occurrence_df["Count"] > 20].sort_values(
@@ -120,11 +126,11 @@ v.values[(np.r_[: len(v)],) * 2] = 0
 v_top = v[v > 10]
 len(v_top[v_top != np.nan].index)
 v_top["Zolo"].T.value_counts()
-v_dropped = v.drop(v[v_top].index)
+# v_dropped = v.drop(v[v_top].index)
 filtered_df = v[(v > 10).any()]
-filtered_df.index
+filtered_df.columns
 px.imshow(
-    v_top,
+    filtered_df,
     labels=dict(
         color="# of Occurences",
     ),
@@ -152,11 +158,12 @@ df_co_occurrence = pd.DataFrame(
     co_occurrence_matrix, index=list(all_genres), columns=list(all_genres)
 )
 
+df_co_occurrence = df_co_occurrence.reindex(sorted(df_co_occurrence.columns), axis=1)
+
+
 # print(df_co_occurrence)
-px.imshow(df_co_occurrence)
+px.imshow(df_co_occurrence.sort_index())
 
-
-# same co-occurence but with different list
 
 # rummaging through data
 df.sort_values("user_score", ascending=False).tail(20)
