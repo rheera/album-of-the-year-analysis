@@ -6,6 +6,8 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import seaborn as sns
+from plotly.figure_factory import create_dendrogram
+from scipy.cluster import hierarchy
 from sklearn.cluster import AgglomerativeClustering, KMeans
 
 """
@@ -220,3 +222,35 @@ cluster_labels = clustering.fit_predict(co_occurrence_matrix)
 genre_groups = {i: [] for i in range(n_clusters)}
 for genre, label in zip(all_genres, cluster_labels):
     genre_groups[label].append(genre)
+
+
+all_genres = set(genre for pair in filtered_genres.keys() for genre in pair)
+
+# Initialize an empty matrix (2D list)
+num_genres = len(all_genres)
+co_occurrence_matrix = [[0] * num_genres for _ in range(num_genres)]
+
+# Fill in the matrix
+genre_to_index = {genre: i for i, genre in enumerate(all_genres)}
+for (genre1, genre2), count in filtered_genres.items():
+    row, col = genre_to_index[genre1], genre_to_index[genre2]
+    co_occurrence_matrix[row][col] = count
+    co_occurrence_matrix[col][row] = count  # Symmetric matrix
+
+# Convert to DataFrame (optional)
+df_co_occurrence = pd.DataFrame(
+    co_occurrence_matrix, index=list(all_genres), columns=list(all_genres)
+)
+# sort the columns alphabetically
+df_co_occurrence = df_co_occurrence.reindex(sorted(df_co_occurrence.columns), axis=1)
+
+
+# print(df_co_occurrence)
+px.imshow(
+    df_co_occurrence.sort_index(),  # sort the index alphabetically
+    width=800,
+    height=800,
+)
+
+
+# create_dendrogram(df_co_occurrence.sort_index(), labels=df_co_occurrence.columns)
