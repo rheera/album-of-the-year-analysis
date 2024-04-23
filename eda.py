@@ -26,11 +26,13 @@ df.dropna(subset=["genres"], axis=0, inplace=True)
 # convert genres to list
 df["genres"] = df["genres"].apply(literal_eval)
 
-# check how many unique genres there are
+# check how many unique genres there are and the top genres
 genres = df["genres"].to_list()
 flat_genres = np.hstack(genres)
+genre_df = pd.DataFrame(flat_genres, columns=["genre"])
+top_genres = pd.DataFrame(genre_df.value_counts()).reset_index()
+px.bar(top_genres.head(30), x="genre", y="count")
 len(np.unique(flat_genres))
-
 # Create a co_occurence dictionary of all the genres to see which genres are seen most foten with each other
 # Initialize a dictionary to store genre pairs and counts
 genre_counts = {}

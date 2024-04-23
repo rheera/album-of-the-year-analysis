@@ -33,8 +33,3 @@ for genre in genres_divs:
         )
     else:
         write_genre["genres"].append({"genre": genre.findChildren("a")[0].text})
-len(all_parent_genres)
-for genre in all_parent_genres:
-    write_genre["genres"].append({"genre": genre})
-with open("genres_flat.json", "w", encoding="utf-8") as f:
-    json.dump(write_genre, f, ensure_ascii=False, indent=4)
