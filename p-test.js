@@ -23,7 +23,27 @@ const base_url = "https://pptr.dev/faq";
 
   let $parent = await page.$(".menu__list");
   let $childs = await $parent.$$(":scope > *");
+  console.log($childs.length);
   console.log($childs);
+  //   for (const $child in $childs) {
+  //     await (await $child.getProperty("tagName")).jsonValue();
+  //   }
+  for (let i = 0; i < $childs.length; i++) {
+    console.log(await (await $childs[i].getProperty("tagName")).jsonValue());
+    const child_item = await $childs[i].$$(
+      ":scope > .menu__list-item-collapsible"
+    );
+    if (child_item.length > 0) {
+      child_item.click();
+    }
+    // console.log({
+    //   genre: await page.evaluate((el) => el.textContent, $childs[i]),
+    //   children: "none",
+    // });
+  }
+  //   let btn = await $childs[2].$$(":scope > .menu__list-item-collapsible")[0];
+  //   console.log(btn);
+  //   console.log(await (await $childs[0].getProperty("tagName")).jsonValue());
   //   for (let i = 0; i < all_genres_cnt.length; i++) {
   //     const img = await all_genres_cnt[i].$eval("li", (i) =>
   //       i.getProperty("className")
@@ -45,7 +65,7 @@ const base_url = "https://pptr.dev/faq";
   //   // Print the full title
   //   console.log('The title of this blog post is "%s".', fullTitle);
 
-  await browser.close();
+  //   await browser.close();
 })();
 
 export async function elementHasClass(el, className) {

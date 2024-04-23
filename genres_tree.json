@@ -1,0 +1,458 @@
+{
+  "genres": [
+    {
+      "genre": "Afrobeat"
+    },
+    {
+      "genre": "Aggrotech"
+    },
+    {
+      "genre": "Ambient",
+      "children": [
+        { "genre": "Ambient Dub" },
+        { "genre": "Ambient Noise Wall" },
+        {
+          "genre": "Dark Ambient",
+          "children": [
+            { "genre": "Black Ambient" },
+            { "genre": "Ritual Ambient" }
+          ]
+        },
+        { "genre": "Space Ambient" },
+        { "genre": "Tribal Ambient" }
+      ]
+    },
+    {
+      "genre": "Ambient Pop"
+    },
+    {
+      "genre": "Americana"
+    },
+    {
+      "genre": "Axé"
+    },
+    {
+      "genre": "Bachata"
+    },
+    {
+      "genre": "Baião"
+    },
+    {
+      "genre": "Ballet"
+    },
+    {
+      "genre": "Blackened Crust"
+    },
+    {
+      "genre": "Blues",
+      "children": []
+    },
+    {
+      "genre": "Bolero"
+    },
+    {
+      "genre": "Bossa Nova"
+    },
+    {
+      "genre": "Bounce"
+    },
+    {
+      "genre": "Brega calypso"
+    },
+    {
+      "genre": "Britpop"
+    },
+    {
+      "genre": "Calypso"
+    },
+    {
+      "genre": "Chanson"
+    },
+    {
+      "genre": "Children's Music"
+    },
+    {
+      "genre": "Christmas"
+    },
+    {
+      "genre": "Classical",
+      "children": []
+    },
+    {
+      "genre": "Classical Crossover"
+    },
+    {
+      "genre": "Comedy",
+      "children": []
+    },
+    {
+      "genre": "Country",
+      "children": []
+    },
+    {
+      "genre": "Cumbia"
+    },
+    {
+      "genre": "D-Beat"
+    },
+    {
+      "genre": "Dance",
+      "children": []
+    },
+    {
+      "genre": "Dancehall"
+    },
+    {
+      "genre": "Darkwave"
+    },
+    {
+      "genre": "Death Industrial"
+    },
+    {
+      "genre": "Dembow"
+    },
+    {
+      "genre": "Drift Phonk"
+    },
+    {
+      "genre": "Drone"
+    },
+    {
+      "genre": "Dungeon Synth",
+      "children": []
+    },
+    {
+      "genre": "Easy Listening",
+      "children": []
+    },
+    {
+      "genre": "Electronic",
+      "children": []
+    },
+    {
+      "genre": "Emo",
+      "children": []
+    },
+    {
+      "genre": "Epic Collage"
+    },
+    {
+      "genre": "Ethereal Wave"
+    },
+    {
+      "genre": "Exotica"
+    },
+    {
+      "genre": "Experimental",
+      "children": []
+    },
+    {
+      "genre": "Field Recordings",
+      "children": []
+    },
+    {
+      "genre": "Flamenco",
+      "children": []
+    },
+    {
+      "genre": "Flamenco Pop"
+    },
+    {
+      "genre": "Folk",
+      "children": []
+    },
+    {
+      "genre": "Forró",
+      "children": []
+    },
+    {
+      "genre": "Frevo"
+    },
+    {
+      "genre": "Funk",
+      "children": []
+    },
+    {
+      "genre": "Funk brasileiro",
+      "children": []
+    },
+    {
+      "genre": "Futurepop"
+    },
+    {
+      "genre": "Gamelan",
+      "children": []
+    },
+    {
+      "genre": "Glitch Pop"
+    },
+    {
+      "genre": "Gospel",
+      "children": []
+    },
+    {
+      "genre": "Gregorian Chant"
+    },
+    {
+      "genre": "Grunge"
+    },
+    {
+      "genre": "Hip Hop",
+      "children": []
+    },
+    {
+      "genre": "Hymns"
+    },
+    {
+      "genre": "Hyperpop"
+    },
+    {
+      "genre": "Hypnagogic Pop"
+    },
+    {
+      "genre": "Indie Pop",
+      "children": []
+    },
+    {
+      "genre": "Industrial",
+      "children": []
+    },
+    {
+      "genre": "Jangle Pop"
+    },
+    {
+      "genre": "Jazz",
+      "children": []
+    },
+    {
+      "genre": "Juke"
+    },
+    {
+      "genre": "Latin Alternative"
+    },
+    {
+      "genre": "Liquid Drum and Bass"
+    },
+    {
+      "genre": "Mambo"
+    },
+    {
+      "genre": "Mande Music"
+    },
+    {
+      "genre": "Maracatu"
+    },
+    {
+      "genre": "Mariachi"
+    },
+    {
+      "genre": "Mashup"
+    },
+    {
+      "genre": "Metal",
+      "children": []
+    },
+    {
+      "genre": "Minimal Synth"
+    },
+    {
+      "genre": "Moda de viola"
+    },
+    {
+      "genre": "MPB",
+      "children": []
+    },
+    {
+      "genre": "Musical Parody"
+    },
+    {
+      "genre": "Musique concrète"
+    },
+    {
+      "genre": "Neo-Medieval Folk"
+    },
+    {
+      "genre": "Neoclassical Darkwave"
+    },
+    {
+      "genre": "New Age",
+      "children": []
+    },
+    {
+      "genre": "New Rave"
+    },
+    {
+      "genre": "Noise",
+      "children": []
+    },
+    {
+      "genre": "Noise Pop"
+    },
+    {
+      "genre": "Noisegrind"
+    },
+    {
+      "genre": "NWOBHM"
+    },
+    {
+      "genre": "Piano Rock"
+    },
+    {
+      "genre": "Plunderphonics"
+    },
+    {
+      "genre": "Polka"
+    },
+    {
+      "genre": "Pop",
+      "children": []
+    },
+    {
+      "genre": "Post-Hardcore",
+      "children": []
+    },
+    {
+      "genre": "Post-Minimalism"
+    },
+    {
+      "genre": "Post-Punk",
+      "children": []
+    },
+    {
+      "genre": "Power Electronics"
+    },
+    {
+      "genre": "Power Pop"
+    },
+    {
+      "genre": "Progressive Pop"
+    },
+    {
+      "genre": "Psichedelia occulta italiana"
+    },
+    {
+      "genre": "Psychedelia",
+      "children": []
+    },
+    {
+      "genre": "Psychobilly"
+    },
+    {
+      "genre": "Punk",
+      "children": []
+    },
+    {
+      "genre": "R&B",
+      "children": []
+    },
+    {
+      "genre": "Radio Drama"
+    },
+    {
+      "genre": "Ragtime",
+      "children": []
+    },
+    {
+      "genre": "Rap Rock"
+    },
+    {
+      "genre": "Reggae",
+      "children": []
+    },
+    {
+      "genre": "Reggaeton",
+      "children": []
+    },
+    {
+      "genre": "Regional",
+      "children": []
+    },
+    {
+      "genre": "Rock",
+      "children": []
+    },
+    {
+      "genre": "Rock & Roll"
+    },
+    {
+      "genre": "Rockabilly"
+    },
+    {
+      "genre": "Salsa"
+    },
+    {
+      "genre": "Samba",
+      "children": []
+    },
+    {
+      "genre": "Sampledelia"
+    },
+    {
+      "genre": "Sea Shanties"
+    },
+    {
+      "genre": "Sertanejo"
+    },
+    {
+      "genre": "Sertanejo de raiz"
+    },
+    {
+      "genre": "Sertanejo universitário"
+    },
+    {
+      "genre": "Show Tunes"
+    },
+    {
+      "genre": "Sierreño",
+      "children": []
+    },
+    {
+      "genre": "Singer-Songwriter"
+    },
+    {
+      "genre": "Ska",
+      "children": []
+    },
+    {
+      "genre": "Spoken Word",
+      "children": []
+    },
+    {
+      "genre": "Standards"
+    },
+    {
+      "genre": "Surf Pop"
+    },
+    {
+      "genre": "Synth Funk"
+    },
+    {
+      "genre": "Synth Punk"
+    },
+    {
+      "genre": "Tango"
+    },
+    {
+      "genre": "Tishoumaren"
+    },
+    {
+      "genre": "Totalism"
+    },
+    {
+      "genre": "Twee Pop"
+    },
+    {
+      "genre": "Vanguarda paulista"
+    },
+    {
+      "genre": "Vapor",
+      "children": []
+    },
+    {
+      "genre": "Xote"
+    },
+    {
+      "genre": "Yé-yé"
+    }
+  ]
+}
