@@ -21,8 +21,6 @@ cleaning
 """
 # drop all rows that don't have genres
 df.dropna(subset=["genres"], axis=0, inplace=True)
-
-
 # convert genres to list
 df["genres"] = df["genres"].apply(literal_eval)
 
