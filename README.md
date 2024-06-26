@@ -29,7 +29,9 @@ A lot of the scraping should be similar as the cached version of the site since 
 
 Albumoftheyear.org (AOTY), a popular website for album ratings and reviews, contains lists of the best albums for each year from 1950 to now. I've compilied a dataset of the top 100 albums from each year based on users scores.
 
-The dataset will be available as a .xlsx file here soon.
+After gathering the album data I wanted to know the album duration and number of tracks so I used Discogs API on every album to enrich the data.
+
+The dataset will be available as a .xlsx file here called albums_data_added_1955_2024 for the complete data along with the album duration and number of tracks.
 
 The below table lists the columns in the data.
 
@@ -105,6 +107,18 @@ The below table lists the columns in the data.
         What year is the album from (what list the album's part of).
       </td>
     </tr>
+    <tr>
+      <td>album_length</td>
+      <td>
+        The duration of the entire album. 0 or null if unknown.
+      </td>
+    </tr>
+    <tr>
+      <td>num_of_tracks</td>
+      <td>
+        Number of tracks on the the album.
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -121,15 +135,19 @@ The below table lists the columns in the data.
 
 ### Task 1: Data Collection
 
-- [ ] Scrape AOTY data
+- [x] Scrape AOTY data
 
 ### Task 2: Data Wrangling
 
 - [ ] Finding Missing Values
 - [ ] Determine Missing Values
 - [ ] Finding Duplicates
-- [ ] Removing Duplicates
+- [x] Removing Duplicates
 - [ ] Normalizing Data
+
+### Task 2b: Data Enrichment
+
+- [x] Use Discogs API to gather number of tracks and album duration data for each album
 
 ### Task 3: Exploratory Data Analysis
 
@@ -159,4 +177,6 @@ The below table lists the columns in the data.
 
 ## Considerations
 
-Since AOTY seems to have beenc created in 2008 older Albums don't have as many ratings and the metadata of the album can possibly be less accurate.
+Since AOTY seems to have been created in 2008, older Albums don't have as many ratings and the metadata of the album can possibly be less accurate.
+
+I had to scrape the number of tracks and album duration myself so there's a chance that they're not accurate since a release could have different versions. Some albums also have number of tracks and duration data missing because of this.
