@@ -27,7 +27,7 @@ A lot of the scraping should be similar as the cached version of the site since 
 
 ## Data Description
 
-Albumoftheyear.org (AOTY), a popular website for album ratings and reviews, contains lists of the best albums for each year from 1950 to now. I've compilied a dataset of the top 100 albums from each year based on users scores.
+Albumoftheyear.org (AOTY), a popular website for album ratings and reviews, contains lists of the best albums for each year from 1950 to now. I've compiled a dataset of the top 100 albums from each year based on users scores.
 
 After gathering the album data I wanted to know the album duration and number of tracks so I used Discogs API on every album to enrich the data.
 
